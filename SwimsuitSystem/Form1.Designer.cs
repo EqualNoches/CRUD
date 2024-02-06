@@ -44,6 +44,7 @@
             txbPhoneNumber = new TextBox();
             txbEmail = new TextBox();
             btnSubmit = new Button();
+            btnExit = new Button();
             SuspendLayout();
             // 
             // lblName
@@ -149,6 +150,7 @@
             rdbMale.TabStop = true;
             rdbMale.Text = "Male";
             rdbMale.UseVisualStyleBackColor = true;
+            rdbMale.CheckedChanged += rdbMale_CheckedChanged;
             // 
             // rdbFemale
             // 
@@ -160,6 +162,7 @@
             rdbFemale.TabStop = true;
             rdbFemale.Text = "Female";
             rdbFemale.UseVisualStyleBackColor = true;
+            rdbFemale.CheckedChanged += rdbFemale_CheckedChanged;
             // 
             // txbNationality
             // 
@@ -187,18 +190,30 @@
             // 
             // btnSubmit
             // 
-            btnSubmit.Location = new Point(407, 962);
+            btnSubmit.Location = new Point(619, 1005);
             btnSubmit.Name = "btnSubmit";
-            btnSubmit.Size = new Size(284, 109);
+            btnSubmit.Size = new Size(220, 76);
             btnSubmit.TabIndex = 19;
             btnSubmit.Text = "Submit";
             btnSubmit.UseVisualStyleBackColor = true;
+            btnSubmit.Click += btnSubmit_Click;
+            // 
+            // btnExit
+            // 
+            btnExit.Location = new Point(34, 994);
+            btnExit.Name = "btnExit";
+            btnExit.Size = new Size(226, 76);
+            btnExit.TabIndex = 20;
+            btnExit.Text = "Exit";
+            btnExit.UseVisualStyleBackColor = true;
+            btnExit.Click += btnExit_Click;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(15F, 37F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1034, 1235);
+            ClientSize = new Size(865, 1111);
+            Controls.Add(btnExit);
             Controls.Add(btnSubmit);
             Controls.Add(txbEmail);
             Controls.Add(txbPhoneNumber);
@@ -239,5 +254,6 @@
         private TextBox txbPhoneNumber;
         private TextBox txbEmail;
         private Button btnSubmit;
+        private Button btnExit;
     }
 }
