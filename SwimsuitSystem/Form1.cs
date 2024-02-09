@@ -1,6 +1,8 @@
 using MySql.Data.MySqlClient;
+using Org.BouncyCastle.Tls;
 using SwimsuitSystem.Data;
 using System.Data;
+using System.Globalization;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using static System.Net.Mime.MediaTypeNames;
@@ -12,9 +14,10 @@ namespace SwimsuitSystem
     public partial class Form1 : Form
     {
         string[] Genero = { "Hombre", "Mujer" };
+        string name, lastname, nationality, email;
 
         Data.Connection conn = new Data.Connection();
-        Clientes clientes = new();
+        Clientes clientes = new Clientes("", "", "", 0, "", 0);
 
         //patron regex para saber si solo se encuentran letras en una cadena
         string regexPattern = "^(?:[a-zA-Z]+)?$";
@@ -37,10 +40,21 @@ namespace SwimsuitSystem
 
         private void txbFirstName_TextChanged(object sender, EventArgs e)
         {
-            string name = txbFirstName.Text;
+            name = txbFirstName.Text;
+            clientes.Nombre = name;
+            if (clientes.Nombre == name)
+            {
+                lblCambiado.Visible = true;
+            }
+
             if (ValidFormat(name, txbFirstName))
             {
                 clientes.Nombre = name;
+                if (clientes.Nombre == name)
+                {
+                    lblCambiado.Visible = true;
+                }
+
             }
         }
 
@@ -107,20 +121,13 @@ namespace SwimsuitSystem
 
         private void btnSubmit_Click(object sender, EventArgs e)
         {
-            string nombre = clientes.Nombre;
-            string sql = $"INSERT INTO clientes (nombre) values (@Nombre)";
-            conn.connOpen();
-            using (MySqlCommand cmd = new MySqlCommand(sql, conn.GetConnection()))
-            {
-                // Use AddWithValue to add the parameter with its value
-                cmd.Parameters.AddWithValue("@Nombre", nombreValue);
 
-                cmd.ExecuteNonQuery();
-            }
-
-            conn.connClose();
+            conn.connInsert(clientes.Nombre, clientes.Apellido, clientes.Genero,clientes.FechaNacimiento,clientes.phoneNumber);
         }
-    }
 
+        private void dtpBirthday_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

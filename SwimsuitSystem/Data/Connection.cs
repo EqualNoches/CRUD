@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,15 +11,12 @@ namespace SwimsuitSystem.Data
 {
     internal class Connection
     {
-        Clientes clientes = new();
-
         public static MySqlConnection connMaster = new MySqlConnection();
 
         static string server = "127.0.0.1;";
         static string dataBase = "sneakersdb;";
         static string uid = "root;";
-        static string password = ";";
-
+        static string password = ";";        
 
         public static MySqlConnection dataSource()
         {
@@ -38,13 +36,12 @@ namespace SwimsuitSystem.Data
             connMaster.Close();
         }
 
-        public void dbConnection(MySqlConnection conn)
+        public void connInsert(string name,string lastname, string gender, int Birthday, int phoneNumber)
         {
-            string sql = $"INSERT INTO clientes (nombre) values ({clientes.Nombre})";
+           dataSource();
+            string sql = $"INSERT INTO clientes (nombre, apellido,genero, fecha_naciemiento, numbero_telefono, correo_electronico) Values ('{name}',)";
             connOpen();
-            MySqlCommand cmd = new MySqlCommand(sql, conn);
-            cmd.Parameters.Add($"{clientes.Nombre}", MySqlDbType.Text);
-            cmd.Parameters[$"{clientes.Nombre}"].Value = sql;
+            MySqlCommand cmd = new MySqlCommand(sql, connMaster); 
             cmd.ExecuteNonQuery();
             connMaster.Close();
         }

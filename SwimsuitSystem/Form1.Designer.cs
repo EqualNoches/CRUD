@@ -45,6 +45,7 @@
             txbEmail = new TextBox();
             btnSubmit = new Button();
             btnExit = new Button();
+            lblCambiado = new Label();
             SuspendLayout();
             // 
             // lblName
@@ -92,9 +93,9 @@
             lblNationality.AutoSize = true;
             lblNationality.Location = new Point(34, 552);
             lblNationality.Name = "lblNationality";
-            lblNationality.Size = new Size(148, 37);
+            lblNationality.Size = new Size(258, 37);
             lblNationality.TabIndex = 5;
-            lblNationality.Text = "Nationality";
+            lblNationality.Text = "Pais de Naciemiento";
             lblNationality.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // lblPhoneNumber
@@ -139,6 +140,7 @@
             dtpBirthday.Name = "dtpBirthday";
             dtpBirthday.Size = new Size(441, 43);
             dtpBirthday.TabIndex = 12;
+            dtpBirthday.ValueChanged += dtpBirthday_ValueChanged;
             // 
             // rdbMale
             // 
@@ -208,11 +210,22 @@
             btnExit.UseVisualStyleBackColor = true;
             btnExit.Click += btnExit_Click;
             // 
+            // lblCambiado
+            // 
+            lblCambiado.AutoSize = true;
+            lblCambiado.Location = new Point(694, 775);
+            lblCambiado.Name = "lblCambiado";
+            lblCambiado.Size = new Size(140, 37);
+            lblCambiado.TabIndex = 21;
+            lblCambiado.Text = "Cambiado";
+            lblCambiado.Visible = false;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(15F, 37F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(865, 1111);
+            Controls.Add(lblCambiado);
             Controls.Add(btnExit);
             Controls.Add(btnSubmit);
             Controls.Add(txbEmail);
@@ -255,5 +268,6 @@
         private TextBox txbEmail;
         private Button btnSubmit;
         private Button btnExit;
+        private Label lblCambiado;
     }
 }
