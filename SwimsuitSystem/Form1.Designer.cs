@@ -40,12 +40,11 @@
             dtpBirthday = new DateTimePicker();
             rdbMale = new RadioButton();
             rdbFemale = new RadioButton();
-            txbNationality = new TextBox();
             txbPhoneNumber = new TextBox();
             txbEmail = new TextBox();
             btnSubmit = new Button();
             btnExit = new Button();
-            lblCambiado = new Label();
+            cmbPais = new ComboBox();
             SuspendLayout();
             // 
             // lblName
@@ -120,7 +119,7 @@
             // 
             // txbFirstName
             // 
-            txbFirstName.Location = new Point(250, 74);
+            txbFirstName.Location = new Point(297, 74);
             txbFirstName.Name = "txbFirstName";
             txbFirstName.Size = new Size(313, 43);
             txbFirstName.TabIndex = 10;
@@ -128,7 +127,7 @@
             // 
             // txbLastName
             // 
-            txbLastName.Location = new Point(250, 184);
+            txbLastName.Location = new Point(297, 184);
             txbLastName.Name = "txbLastName";
             txbLastName.Size = new Size(313, 43);
             txbLastName.TabIndex = 11;
@@ -136,19 +135,21 @@
             // 
             // dtpBirthday
             // 
-            dtpBirthday.Location = new Point(250, 412);
+            dtpBirthday.Location = new Point(297, 412);
+            dtpBirthday.MaxDate = new DateTime(2024, 12, 31, 0, 0, 0, 0);
+            dtpBirthday.MinDate = new DateTime(1900, 1, 1, 0, 0, 0, 0);
             dtpBirthday.Name = "dtpBirthday";
-            dtpBirthday.Size = new Size(441, 43);
-            dtpBirthday.TabIndex = 12;
+            dtpBirthday.Size = new Size(430, 43);
+            dtpBirthday.TabIndex = 14;
             dtpBirthday.ValueChanged += dtpBirthday_ValueChanged;
             // 
             // rdbMale
             // 
             rdbMale.AutoSize = true;
-            rdbMale.Location = new Point(250, 287);
+            rdbMale.Location = new Point(297, 287);
             rdbMale.Name = "rdbMale";
             rdbMale.Size = new Size(107, 41);
-            rdbMale.TabIndex = 13;
+            rdbMale.TabIndex = 12;
             rdbMale.TabStop = true;
             rdbMale.Text = "Male";
             rdbMale.UseVisualStyleBackColor = true;
@@ -157,37 +158,29 @@
             // rdbFemale
             // 
             rdbFemale.AutoSize = true;
-            rdbFemale.Location = new Point(430, 289);
+            rdbFemale.Location = new Point(477, 289);
             rdbFemale.Name = "rdbFemale";
             rdbFemale.Size = new Size(133, 41);
-            rdbFemale.TabIndex = 14;
+            rdbFemale.TabIndex = 13;
             rdbFemale.TabStop = true;
             rdbFemale.Text = "Female";
             rdbFemale.UseVisualStyleBackColor = true;
             rdbFemale.CheckedChanged += rdbFemale_CheckedChanged;
             // 
-            // txbNationality
-            // 
-            txbNationality.Location = new Point(250, 552);
-            txbNationality.Name = "txbNationality";
-            txbNationality.Size = new Size(313, 43);
-            txbNationality.TabIndex = 15;
-            txbNationality.TextChanged += txbNationality_TextChanged;
-            // 
             // txbPhoneNumber
             // 
-            txbPhoneNumber.Location = new Point(250, 681);
+            txbPhoneNumber.Location = new Point(297, 681);
             txbPhoneNumber.Name = "txbPhoneNumber";
             txbPhoneNumber.Size = new Size(313, 43);
-            txbPhoneNumber.TabIndex = 17;
+            txbPhoneNumber.TabIndex = 16;
             txbPhoneNumber.TextChanged += txbPhoneNumber_TextChanged;
             // 
             // txbEmail
             // 
-            txbEmail.Location = new Point(250, 816);
+            txbEmail.Location = new Point(297, 816);
             txbEmail.Name = "txbEmail";
             txbEmail.Size = new Size(313, 43);
-            txbEmail.TabIndex = 18;
+            txbEmail.TabIndex = 17;
             txbEmail.TextChanged += txbEmail_TextChanged;
             // 
             // btnSubmit
@@ -195,7 +188,7 @@
             btnSubmit.Location = new Point(619, 1005);
             btnSubmit.Name = "btnSubmit";
             btnSubmit.Size = new Size(220, 76);
-            btnSubmit.TabIndex = 19;
+            btnSubmit.TabIndex = 18;
             btnSubmit.Text = "Submit";
             btnSubmit.UseVisualStyleBackColor = true;
             btnSubmit.Click += btnSubmit_Click;
@@ -205,32 +198,29 @@
             btnExit.Location = new Point(34, 994);
             btnExit.Name = "btnExit";
             btnExit.Size = new Size(226, 76);
-            btnExit.TabIndex = 20;
+            btnExit.TabIndex = 19;
             btnExit.Text = "Exit";
             btnExit.UseVisualStyleBackColor = true;
             btnExit.Click += btnExit_Click;
             // 
-            // lblCambiado
+            // cmbPais
             // 
-            lblCambiado.AutoSize = true;
-            lblCambiado.Location = new Point(694, 775);
-            lblCambiado.Name = "lblCambiado";
-            lblCambiado.Size = new Size(140, 37);
-            lblCambiado.TabIndex = 21;
-            lblCambiado.Text = "Cambiado";
-            lblCambiado.Visible = false;
-            // 
+            cmbPais.FormattingEnabled = true;
+            cmbPais.Location = new Point(297, 544);
+            cmbPais.Name = "cmbPais";
+            cmbPais.Size = new Size(339, 45);
+            cmbPais.TabIndex = 20;            
+            //
             // Form1
             // 
             AutoScaleDimensions = new SizeF(15F, 37F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(865, 1111);
-            Controls.Add(lblCambiado);
+            Controls.Add(cmbPais);
             Controls.Add(btnExit);
             Controls.Add(btnSubmit);
             Controls.Add(txbEmail);
             Controls.Add(txbPhoneNumber);
-            Controls.Add(txbNationality);
             Controls.Add(rdbFemale);
             Controls.Add(rdbMale);
             Controls.Add(dtpBirthday);
@@ -263,11 +253,10 @@
         private DateTimePicker dtpBirthday;
         private RadioButton rdbMale;
         private RadioButton rdbFemale;
-        private TextBox txbNationality;
         private TextBox txbPhoneNumber;
         private TextBox txbEmail;
         private Button btnSubmit;
         private Button btnExit;
-        private Label lblCambiado;
+        private ComboBox cmbPais;
     }
 }

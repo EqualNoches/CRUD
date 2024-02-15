@@ -13,14 +13,30 @@ namespace SwimsuitSystem
 {
     public partial class Form1 : Form
     {
+        // inicializacion de variables generales
         string[] Genero = { "Hombre", "Mujer" };
-        string name, lastname, nationality, email;
+        string name, lastName, email, phoneNumber;
 
+        // Codigo que se encarga de obtener todos los nombres de los paises para ser introducidos en un combobox
+        public static List<string> GetAllCountrysNames()
+        {
+            CultureInfo[] cultures = CultureInfo.GetCultures(CultureTypes.SpecificCultures);
+
+            return cultures
+                    .Select(cult => (new RegionInfo(cult.LCID)).DisplayName)
+                    .Distinct()
+                    .OrderBy(q => q)
+                    .ToList();
+        }
+
+        // objetos para llamar a las clases
         Data.Connection conn = new Data.Connection();
-        Clientes clientes = new Clientes("", "", "", 0, "", 0);
+        Clientes clientes = new Clientes("", "", "", 0, "", 0, "");
 
         //patron regex para saber si solo se encuentran letras en una cadena
         string regexPattern = "^(?:[a-zA-Z]+)?$";
+
+        // form 1
         public Form1()
         {
             InitializeComponent();
@@ -35,58 +51,46 @@ namespace SwimsuitSystem
                 MessageBox.Show("Please enter a valid input", "Incorrect format", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txb.Clear();
             }
-            return false;
+            return true;
         }
 
         private void txbFirstName_TextChanged(object sender, EventArgs e)
         {
             name = txbFirstName.Text;
-            clientes.Nombre = name;
-            if (clientes.Nombre == name)
-            {
-                lblCambiado.Visible = true;
-            }
-
             if (ValidFormat(name, txbFirstName))
             {
                 clientes.Nombre = name;
-                if (clientes.Nombre == name)
-                {
-                    lblCambiado.Visible = true;
-                }
-
             }
         }
 
         private void txbLastName_TextChanged(object sender, EventArgs e)
         {
-            string lastName = txbLastName.Text;
-            ValidFormat(lastName, txbLastName);
+            lastName = txbLastName.Text;
+            if (ValidFormat(lastName, txbLastName))
+            {
+                clientes.Apellido = lastName;
+            }
         }
 
-        private void txbNationality_TextChanged(object sender, EventArgs e)
-        {
-            string nationality = txbNationality.Text;
-            ValidFormat(nationality, txbNationality);
-        }
 
         private void txbPhoneNumber_TextChanged(object sender, EventArgs e)
         {
-            string phoneNumber = txbPhoneNumber.Text;
+            phoneNumber = txbPhoneNumber.Text;
 
             // validar si es esta escribiendo un numero de telefono
-            string regexPatternPhoneNumber = "^\\s?(?:\\d{3}-\\d{3}-\\d{4}|1 \\d{3}-\\d{3}-\\d{4})\\s?$";
-            if (Regex.IsMatch(phoneNumber, regexPatternPhoneNumber))
+            string regexPatternPhoneNumber = "/^\\(?([0-9]{3})\\)?[-.\\s]?([0-9]{3})[-.\\s]?([0-9]{4})$/";
+            if (!Regex.IsMatch(phoneNumber, regexPatternPhoneNumber))
             {
                 MessageBox.Show("Please enter a valid input", "Incorrect format", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txbPhoneNumber.Clear();
             }
+
         }
 
         private void txbEmail_TextChanged(object sender, EventArgs e)
         {
-            string email = txbEmail.Text;
-            ValidFormat(email, txbEmail);
+            email = txbEmail.Text;
+            clientes.emailAddress = email;
         }
 
 
@@ -118,16 +122,25 @@ namespace SwimsuitSystem
         {
             System.Windows.Forms.Application.Exit();
         }
-
-        private void btnSubmit_Click(object sender, EventArgs e)
-        {
-
-            conn.connInsert(clientes.Nombre, clientes.Apellido, clientes.Genero,clientes.FechaNacimiento,clientes.phoneNumber);
-        }
-
         private void dtpBirthday_ValueChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnSubmit_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                conn.connInsert(clientes.Nombre, clientes.Apellido, clientes.Genero, clientes.FechaNacimiento, clientes.phoneNumber, clientes.emailAddress);
+                MessageBox.Show("Your information was stored successfully.\nYou will receive a confirmation message on the given address", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Your request wasn't successfull.\nPlease check your information.", "Error connecting to the server", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Console.WriteLine(ex);
+            }
         }
     }
 }

@@ -36,10 +36,10 @@ namespace SwimsuitSystem.Data
             connMaster.Close();
         }
 
-        public void connInsert(string name,string lastname, string gender, int Birthday, int phoneNumber)
+        public void connInsert(string name,string lastname, string gender, int Birthday, int phoneNumber, string emailAddress)
         {
            dataSource();
-            string sql = $"INSERT INTO clientes (nombre, apellido,genero, fecha_naciemiento, numbero_telefono, correo_electronico) Values ('{name}',)";
+            string sql = $"INSERT INTO clientes (nombre, apellido,genero, fecha_naciemiento, numbero_telefono, correo_electronico) Values ('{name}','{lastname}', '{gender}', '{Birthday}', '{phoneNumber}', '{emailAddress}')";
             connOpen();
             MySqlCommand cmd = new MySqlCommand(sql, connMaster); 
             cmd.ExecuteNonQuery();
