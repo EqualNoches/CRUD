@@ -4,143 +4,146 @@ using SwimsuitSystem.Data;
 using System.Data;
 using System.Globalization;
 using System.Text.RegularExpressions;
+using System.Windows.Forms;
 using System.Xml.Linq;
 using static System.Net.Mime.MediaTypeNames;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using TextBox = System.Windows.Forms.TextBox;
 
-namespace SwimsuitSystem
+namespace SwimsuitSystem;
+
+public partial class Form1 : Form
 {
-    public partial class Form1 : Form
+    // inicializacion de variables generales
+    private readonly string[] _gender = { "Hombre", "Mujer" };
+    private string _name, _lastName, _email, _phoneNumber, _birthday, _country;
+
+    // Codigo que se encarga de obtener todos los nombres de los paises para ser introducidos en un combobox
+
+    // objetos para llamar a las clases
+    private readonly Connection _conn = new();
+    private readonly Clientes _clients = new("", "", "", "", "", "", "");
+
+    //patron regex para saber si solo se encuentran letras en una cadena
+    private const string RegexPattern = "^(?:[a-zA-Z]+)?$";
+
+    // form 1
+    public Form1()
     {
-        // inicializacion de variables generales
-        string[] Genero = { "Hombre", "Mujer" };
-        string name, lastName, email, phoneNumber;
+        InitializeComponent();
+        PupulateCountrycmb();
+    }
 
-        // Codigo que se encarga de obtener todos los nombres de los paises para ser introducidos en un combobox
-        public static List<string> GetAllCountrysNames()
+    // Esta funcion se encarga de asegurar que solo hayan letras dentro de un textbox
+    private bool ValidFormat(string format, TextBox txb)
+    {
+        var matches = Regex.IsMatch(format, RegexPattern);
+        if (!matches)
         {
-            CultureInfo[] cultures = CultureInfo.GetCultures(CultureTypes.SpecificCultures);
-
-            return cultures
-                    .Select(cult => (new RegionInfo(cult.LCID)).DisplayName)
-                    .Distinct()
-                    .OrderBy(q => q)
-                    .ToList();
+            MessageBox.Show(@"Please enter a valid input", @"Incorrect format", MessageBoxButtons.OK,
+                MessageBoxIcon.Error);
+            txb.Clear();
         }
 
-        // objetos para llamar a las clases
-        Data.Connection conn = new Data.Connection();
-        Clientes clientes = new Clientes("", "", "", 0, "", 0, "");
+        return true;
+    }
 
-        //patron regex para saber si solo se encuentran letras en una cadena
-        string regexPattern = "^(?:[a-zA-Z]+)?$";
+    private void txbFirstName_TextChanged(object sender, EventArgs e)
+    {
+        _name = txbFirstName.Text;
+        if (ValidFormat(_name, txbFirstName)) _clients.Nombre = _name;
+    }
 
-        // form 1
-        public Form1()
+    private void txbLastName_TextChanged(object sender, EventArgs e)
+    {
+        _lastName = txbLastName.Text;
+        if (ValidFormat(_lastName, txbLastName)) _clients.Apellido = _lastName;
+    }
+
+
+    private void txbPhoneNumber_TextChanged(object sender, EventArgs e)
+    {
+        _phoneNumber = txbPhoneNumber.Text;
+
+        // validar si es esta escribiendo un numero de telefono
+        var regexPatternPhoneNumber = "/^\\(?([0-9]{3})\\)?[-.\\s]?([0-9]{3})[-.\\s]?([0-9]{4})$/";
+        if (Regex.IsMatch(_phoneNumber, regexPatternPhoneNumber))
         {
-            InitializeComponent();
+            MessageBox.Show(@"Please enter a valid input", "Incorrect format", MessageBoxButtons.OK,
+                MessageBoxIcon.Error);
+            txbPhoneNumber.Clear();
+            _clients.phoneNumber = _phoneNumber;
+        }
+        else
+        {
+            _clients.phoneNumber = _phoneNumber;
+        }
+    }
+
+    private void txbEmail_TextChanged(object sender, EventArgs e)
+    {
+        _email = txbEmail.Text;
+        _clients.emailAddress = _email;
+    }
+
+
+    private void rdbMale_CheckedChanged(object sender, EventArgs e)
+    {
+        _clients.Genero = (rdbMale.Checked ? _gender[0] : null)!;
+    }
+
+    private void rdbFemale_CheckedChanged(object sender, EventArgs e)
+    {
+        _clients.Genero = (rdbFemale.Checked ? _gender[1] : null)!;
+    }
+
+    private void btnExit_Click(object sender, EventArgs e)
+    {
+        System.Windows.Forms.Application.Exit();
+    }
+
+    private void dtpBirthday_ValueChanged(object sender, EventArgs e)
+    {
+        _birthday = dtpBirthday.Value.ToString("yyyy-MM-dd");
+        _clients.Birthday = _birthday;
+    }
+
+    private void btnSubmit_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            _conn.connInsert(_clients.Nombre, _clients.Apellido, _clients.Genero, _clients.Birthday,
+                _clients.phoneNumber, _clients.emailAddress, _clients.Nationality);
+            MessageBox.Show(
+                @"Your information was stored successfully.
+You will receive a confirmation message on the given address",
+                @"Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($@"Your request wasn't successfully done.
+Please check your information.",
+                @"Error connecting to the server", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            Console.WriteLine(ex);
+        }
+    }
+
+    private void PupulateCountrycmb()
+    {
+        var countries = new List<string>();
+        var cultures = CultureInfo.GetCultures(CultureTypes.SpecificCultures);
+        foreach (var culture in cultures)
+        {
+            var region = new RegionInfo(culture.Name); // Pass culture name
+            if (!countries.Contains(region.EnglishName)) countries.Add(region.EnglishName);
         }
 
-        // Esta funcion se encarga de asegurar que solo hayan letras dentro de un textbox
-        public bool ValidFormat(string format, TextBox txb)
-        {
-            bool matches = Regex.IsMatch(format, regexPattern);
-            if (!matches)
-            {
-                MessageBox.Show("Please enter a valid input", "Incorrect format", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txb.Clear();
-            }
-            return true;
-        }
+        cmbPais.Items.AddRange(countries.ToArray());
+    }
 
-        private void txbFirstName_TextChanged(object sender, EventArgs e)
-        {
-            name = txbFirstName.Text;
-            if (ValidFormat(name, txbFirstName))
-            {
-                clientes.Nombre = name;
-            }
-        }
-
-        private void txbLastName_TextChanged(object sender, EventArgs e)
-        {
-            lastName = txbLastName.Text;
-            if (ValidFormat(lastName, txbLastName))
-            {
-                clientes.Apellido = lastName;
-            }
-        }
-
-
-        private void txbPhoneNumber_TextChanged(object sender, EventArgs e)
-        {
-            phoneNumber = txbPhoneNumber.Text;
-
-            // validar si es esta escribiendo un numero de telefono
-            string regexPatternPhoneNumber = "/^\\(?([0-9]{3})\\)?[-.\\s]?([0-9]{3})[-.\\s]?([0-9]{4})$/";
-            if (!Regex.IsMatch(phoneNumber, regexPatternPhoneNumber))
-            {
-                MessageBox.Show("Please enter a valid input", "Incorrect format", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txbPhoneNumber.Clear();
-            }
-
-        }
-
-        private void txbEmail_TextChanged(object sender, EventArgs e)
-        {
-            email = txbEmail.Text;
-            clientes.emailAddress = email;
-        }
-
-
-
-        private void rdbMale_CheckedChanged(object sender, EventArgs e)
-        {
-            if (rdbMale.Checked)
-            {
-                clientes.Genero = Genero[0];
-            }
-            else
-            {
-                clientes.Genero = null;
-            }
-        }
-
-        private void rdbFemale_CheckedChanged(object sender, EventArgs e)
-        {
-            if (rdbFemale.Checked)
-            {
-                clientes.Genero = Genero[1];
-            }
-            else
-            {
-                clientes.Genero = null;
-            }
-        }
-        private void btnExit_Click(object sender, EventArgs e)
-        {
-            System.Windows.Forms.Application.Exit();
-        }
-        private void dtpBirthday_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnSubmit_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                conn.connInsert(clientes.Nombre, clientes.Apellido, clientes.Genero, clientes.FechaNacimiento, clientes.phoneNumber, clientes.emailAddress);
-                MessageBox.Show("Your information was stored successfully.\nYou will receive a confirmation message on the given address", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Your request wasn't successfull.\nPlease check your information.", "Error connecting to the server", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Console.WriteLine(ex);
-            }
-        }
+    private void cmbPais_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        _country = cmbPais.SelectedItem.ToString();
+        _clients.Nationality = _country;
     }
 }

@@ -13,10 +13,10 @@ namespace SwimsuitSystem.Data
     {
         public static MySqlConnection connMaster = new MySqlConnection();
 
-        static string server = "127.0.0.1;";
-        static string dataBase = "sneakersdb;";
-        static string uid = "root;";
-        static string password = ";";        
+        static readonly string server = "127.0.0.1;";
+        static readonly string dataBase = "sneakersdb;";
+        static readonly string uid = "root;";
+        static readonly string password = ";";        
 
         public static MySqlConnection dataSource()
         {
@@ -36,10 +36,10 @@ namespace SwimsuitSystem.Data
             connMaster.Close();
         }
 
-        public void connInsert(string name,string lastname, string gender, int Birthday, int phoneNumber, string emailAddress)
+        public void connInsert(string name,string lastname, string gender, string Birthday, string phoneNumber, string emailAddress, string country)
         {
            dataSource();
-            string sql = $"INSERT INTO clientes (nombre, apellido,genero, fecha_naciemiento, numbero_telefono, correo_electronico) Values ('{name}','{lastname}', '{gender}', '{Birthday}', '{phoneNumber}', '{emailAddress}')";
+            string sql = $"INSERT INTO clientes (nombre, apellido,genero, fecha_nacimiento, numero_telefono, correo_electronico, pais_nacimiento) Values ('{name}','{lastname}', '{gender}', '{Birthday}', '{phoneNumber}', '{emailAddress}', '{country}')";
             connOpen();
             MySqlCommand cmd = new MySqlCommand(sql, connMaster); 
             cmd.ExecuteNonQuery();

@@ -11,17 +11,17 @@ namespace SwimsuitSystem.Data
         public string Nombre { get; set; }
         public string Apellido { get; set; }
         public string Genero { get; set; }
-        public int FechaNacimiento { get; set; }
+        public string Birthday { get; set; }
         public string Nationality { get; set; }
-        public int phoneNumber { get; set; }
+        public string phoneNumber { get; set; }
         public string emailAddress { get; set; }
 
-        public Clientes (string nombre, string apellido, string genero, int fechaNacimiento, string nationality, int phoneNumber, string emailAddress)
+        public Clientes (string nombre, string apellido, string genero, string fechaNacimiento, string nationality, string phoneNumber, string emailAddress)
         {
             Nombre = nombre;
             Apellido = apellido;
             Genero = genero;
-            FechaNacimiento = fechaNacimiento;
+            Birthday = fechaNacimiento;
             Nationality = nationality;
             this.phoneNumber = phoneNumber;
             this.emailAddress = emailAddress;

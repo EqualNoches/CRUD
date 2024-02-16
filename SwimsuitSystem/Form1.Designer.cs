@@ -205,12 +205,15 @@
             // 
             // cmbPais
             // 
+            cmbPais.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbPais.FormattingEnabled = true;
             cmbPais.Location = new Point(297, 544);
             cmbPais.Name = "cmbPais";
             cmbPais.Size = new Size(339, 45);
-            cmbPais.TabIndex = 20;            
-            //
+            cmbPais.Sorted = true;
+            cmbPais.TabIndex = 20;
+            cmbPais.SelectedIndexChanged += cmbPais_SelectedIndexChanged;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(15F, 37F);
