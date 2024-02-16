@@ -61,17 +61,17 @@ public partial class Form1 : Form
     }
 
 
-    private void txbPhoneNumber_TextChanged(object sender, EventArgs e)
+    private void mtxbPhoneNumber_TextChanged(object sender, EventArgs e)
     {
-        _phoneNumber = txbPhoneNumber.Text;
+        _phoneNumber = mtxbPhoneNumber.Text;
 
-        // validar si es esta escribiendo un numero de telefono
-        var regexPatternPhoneNumber = "/^\\(?([0-9]{3})\\)?[-.\\s]?([0-9]{3})[-.\\s]?([0-9]{4})$/";
+        //validar si es esta escribiendo un numero de telefono
+        string regexPatternPhoneNumber = "/^\\(?([0-9]{3})\\)?[-.\\s]?([0-9]{3})[-.\\s]?([0-9]{4})$/";
         if (Regex.IsMatch(_phoneNumber, regexPatternPhoneNumber))
         {
             MessageBox.Show(@"Please enter a valid input", "Incorrect format", MessageBoxButtons.OK,
                 MessageBoxIcon.Error);
-            txbPhoneNumber.Clear();
+            mtxbPhoneNumber.Clear();
             _clients.phoneNumber = _phoneNumber;
         }
         else
@@ -97,9 +97,11 @@ public partial class Form1 : Form
         _clients.Genero = (rdbFemale.Checked ? _gender[1] : null)!;
     }
 
-    private void btnExit_Click(object sender, EventArgs e)
+    private void btnBack_Click(object sender, EventArgs e)
     {
-        System.Windows.Forms.Application.Exit();
+        MainMenu mainMenu = new MainMenu();
+        this.Close();
+        mainMenu.Show();
     }
 
     private void dtpBirthday_ValueChanged(object sender, EventArgs e)
@@ -145,5 +147,13 @@ Please check your information.",
     {
         _country = cmbPais.SelectedItem.ToString();
         _clients.Nationality = _country;
+    }
+
+    private void mtxbPhoneNumber_Enter(object sender, EventArgs e)
+    {
+        this.BeginInvoke((MethodInvoker)delegate ()
+        {
+            mtxbPhoneNumber.Select(0, 0);
+        });
     }
 }

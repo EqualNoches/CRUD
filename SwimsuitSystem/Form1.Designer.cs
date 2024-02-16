@@ -40,11 +40,11 @@
             dtpBirthday = new DateTimePicker();
             rdbMale = new RadioButton();
             rdbFemale = new RadioButton();
-            txbPhoneNumber = new TextBox();
             txbEmail = new TextBox();
             btnSubmit = new Button();
-            btnExit = new Button();
+            btnBack = new Button();
             cmbPais = new ComboBox();
+            mtxbPhoneNumber = new MaskedTextBox();
             SuspendLayout();
             // 
             // lblName
@@ -167,14 +167,6 @@
             rdbFemale.UseVisualStyleBackColor = true;
             rdbFemale.CheckedChanged += rdbFemale_CheckedChanged;
             // 
-            // txbPhoneNumber
-            // 
-            txbPhoneNumber.Location = new Point(297, 681);
-            txbPhoneNumber.Name = "txbPhoneNumber";
-            txbPhoneNumber.Size = new Size(313, 43);
-            txbPhoneNumber.TabIndex = 16;
-            txbPhoneNumber.TextChanged += txbPhoneNumber_TextChanged;
-            // 
             // txbEmail
             // 
             txbEmail.Location = new Point(297, 816);
@@ -193,15 +185,15 @@
             btnSubmit.UseVisualStyleBackColor = true;
             btnSubmit.Click += btnSubmit_Click;
             // 
-            // btnExit
+            // btnBack
             // 
-            btnExit.Location = new Point(34, 994);
-            btnExit.Name = "btnExit";
-            btnExit.Size = new Size(226, 76);
-            btnExit.TabIndex = 19;
-            btnExit.Text = "Exit";
-            btnExit.UseVisualStyleBackColor = true;
-            btnExit.Click += btnExit_Click;
+            btnBack.Location = new Point(34, 994);
+            btnBack.Name = "btnBack";
+            btnBack.Size = new Size(226, 76);
+            btnBack.TabIndex = 19;
+            btnBack.Text = "← Back";
+            btnBack.UseVisualStyleBackColor = true;
+            btnBack.Click += btnBack_Click;
             // 
             // cmbPais
             // 
@@ -214,16 +206,27 @@
             cmbPais.TabIndex = 20;
             cmbPais.SelectedIndexChanged += cmbPais_SelectedIndexChanged;
             // 
+            // mtxbPhoneNumber
+            // 
+            mtxbPhoneNumber.InsertKeyMode = InsertKeyMode.Insert;
+            mtxbPhoneNumber.Location = new Point(297, 675);
+            mtxbPhoneNumber.Mask = "(999) 000-0000";
+            mtxbPhoneNumber.Name = "mtxbPhoneNumber";
+            mtxbPhoneNumber.Size = new Size(339, 43);
+            mtxbPhoneNumber.TabIndex = 21;
+            mtxbPhoneNumber.TextChanged += mtxbPhoneNumber_TextChanged;
+            mtxbPhoneNumber.Enter += mtxbPhoneNumber_Enter;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(15F, 37F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(865, 1111);
+            Controls.Add(mtxbPhoneNumber);
             Controls.Add(cmbPais);
-            Controls.Add(btnExit);
+            Controls.Add(btnBack);
             Controls.Add(btnSubmit);
             Controls.Add(txbEmail);
-            Controls.Add(txbPhoneNumber);
             Controls.Add(rdbFemale);
             Controls.Add(rdbMale);
             Controls.Add(dtpBirthday);
@@ -256,10 +259,10 @@
         private DateTimePicker dtpBirthday;
         private RadioButton rdbMale;
         private RadioButton rdbFemale;
-        private TextBox txbPhoneNumber;
         private TextBox txbEmail;
         private Button btnSubmit;
-        private Button btnExit;
+        private Button btnBack;
         private ComboBox cmbPais;
+        private MaskedTextBox mtxbPhoneNumber;
     }
 }
