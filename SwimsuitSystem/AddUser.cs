@@ -12,7 +12,7 @@ using TextBox = System.Windows.Forms.TextBox;
 
 namespace SwimsuitSystem;
 
-public partial class Form1 : Form
+public partial class AddUser : Form
 {
     // inicializacion de variables generales
     private readonly string[] _gender = { "Hombre", "Mujer" };
@@ -28,7 +28,7 @@ public partial class Form1 : Form
     private const string RegexPattern = "^(?:[a-zA-Z]+)?$";
 
     // form 1
-    public Form1()
+    public AddUser()
     {
         InitializeComponent();
         PupulateCountrycmb();

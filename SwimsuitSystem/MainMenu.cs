@@ -19,9 +19,9 @@ namespace SwimsuitSystem
 
         private void btnNewUser_Click(object sender, EventArgs e)
         {
-            Form1 frm1 = new Form1();
-            this.Hide();
-            frm1.Show();
+            AddUser addUser = new AddUser();
+            this.Close();
+            addUser.Show();
         }
 
         private void button4_Click(object sender, EventArgs e)

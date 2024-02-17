@@ -1,6 +1,6 @@
 ﻿namespace SwimsuitSystem
 {
-    partial class Form1
+    partial class AddUser
     {
         /// <summary>
         ///  Required designer variable.
@@ -239,7 +239,7 @@
             Controls.Add(lblGender);
             Controls.Add(lblLastName);
             Controls.Add(lblName);
-            Name = "Form1";
+            Name = "AddUser";
             Text = "Swim Suit";
             ResumeLayout(false);
             PerformLayout();
