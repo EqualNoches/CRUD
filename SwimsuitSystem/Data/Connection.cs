@@ -1,50 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MySql.Data.MySqlClient;
-using MySqlX.XDevAPI;
+﻿using System.Configuration;
+using Microsoft.Data.SqlClient;
 
 namespace SwimsuitSystem.Data
 {
     internal class Connection
     {
-        public static MySqlConnection connMaster = new MySqlConnection();
+        SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["cn"].ConnectionString);
 
-        static readonly string server = "127.0.0.1;";
-        static readonly string dataBase = "sneakersdb;";
-        static readonly string uid = "root;";
-        static readonly string password = ";";        
+        SqlCommand command = null;
 
-        public static MySqlConnection dataSource()
+        public void InsertData(string name, string lastname, string gender, string Birthday, string country, string phoneNumber, string emailAddress)
         {
-            connMaster = new MySqlConnection($"server = {server} database = {dataBase} Uid = {uid} password = {password} ");
-            return connMaster;
+            connection.Open();
+            command = new SqlCommand("addUser", connection);
+            command.Parameters.AddWithValue("@client_name", name);
+            command.Parameters.AddWithValue("@client_last_name", lastname);
+            command.Parameters.AddWithValue("@client_gender", gender);
+            command.Parameters.AddWithValue("@client_birthdate", Birthday);
+            command.Parameters.AddWithValue("@client_birthplace", country);
+            command.Parameters.AddWithValue("@client_phone_number", phoneNumber);
+            command.Parameters.AddWithValue("client_email", emailAddress);
+            command.CommandType = System.Data.CommandType.StoredProcedure;
+            command.ExecuteNonQuery();
+            connection.Close();
         }
-
-        public void connOpen()
-        {
-            dataSource();
-            connMaster.Open();
-        }
-
-        public void connClose()
-        {
-            dataSource();
-            connMaster.Close();
-        }
-
-        public void connInsert(string name,string lastname, string gender, string Birthday, string phoneNumber, string emailAddress, string country)
-        {
-           dataSource();
-            string sql = $"INSERT INTO clientes (nombre, apellido,genero, fecha_nacimiento, numero_telefono, correo_electronico, pais_nacimiento) Values ('{name}','{lastname}', '{gender}', '{Birthday}', '{phoneNumber}', '{emailAddress}', '{country}')";
-            connOpen();
-            MySqlCommand cmd = new MySqlCommand(sql, connMaster); 
-            cmd.ExecuteNonQuery();
-            connMaster.Close();
-        }
-
     }
 }

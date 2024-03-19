@@ -1,13 +1,6 @@
-using MySql.Data.MySqlClient;
-using Org.BouncyCastle.Tls;
 using SwimsuitSystem.Data;
-using System.Data;
 using System.Globalization;
 using System.Text.RegularExpressions;
-using System.Windows.Forms;
-using System.Xml.Linq;
-using static System.Net.Mime.MediaTypeNames;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using TextBox = System.Windows.Forms.TextBox;
 
 namespace SwimsuitSystem;
@@ -21,8 +14,8 @@ public partial class AddUser : Form
     // Codigo que se encarga de obtener todos los nombres de los paises para ser introducidos en un combobox
 
     // objetos para llamar a las clases
-    private readonly Connection _conn = new();
-    private readonly Clientes _clients = new("", "", "", "", "", "", "");
+    private Connection _conn = new Connection();
+    private readonly Clients _clients = new("", "", "", "", "", "", "");
 
     //patron regex para saber si solo se encuentran letras en una cadena
     private const string RegexPattern = "^(?:[a-zA-Z]+)?$";
@@ -51,13 +44,13 @@ public partial class AddUser : Form
     private void txbFirstName_TextChanged(object sender, EventArgs e)
     {
         _name = txbFirstName.Text;
-        if (ValidFormat(_name, txbFirstName)) _clients.Nombre = _name;
+        if (ValidFormat(_name, txbFirstName)) _clients.Name = _name;
     }
 
     private void txbLastName_TextChanged(object sender, EventArgs e)
     {
         _lastName = txbLastName.Text;
-        if (ValidFormat(_lastName, txbLastName)) _clients.Apellido = _lastName;
+        if (ValidFormat(_lastName, txbLastName)) _clients.LastName = _lastName;
     }
 
 
@@ -72,29 +65,29 @@ public partial class AddUser : Form
             MessageBox.Show(@"Please enter a valid input", "Incorrect format", MessageBoxButtons.OK,
                 MessageBoxIcon.Error);
             mtxbPhoneNumber.Clear();
-            _clients.phoneNumber = _phoneNumber;
+            _clients.PhoneNumber = _phoneNumber;
         }
         else
         {
-            _clients.phoneNumber = _phoneNumber;
+            _clients.PhoneNumber = _phoneNumber;
         }
     }
 
     private void txbEmail_TextChanged(object sender, EventArgs e)
     {
         _email = txbEmail.Text;
-        _clients.emailAddress = _email;
+        _clients.EmailAddress = _email;
     }
 
 
     private void rdbMale_CheckedChanged(object sender, EventArgs e)
     {
-        _clients.Genero = (rdbMale.Checked ? _gender[0] : null)!;
+        _clients.Gender = (rdbMale.Checked ? _gender[0] : null)!;
     }
 
     private void rdbFemale_CheckedChanged(object sender, EventArgs e)
     {
-        _clients.Genero = (rdbFemale.Checked ? _gender[1] : null)!;
+        _clients.Gender = (rdbFemale.Checked ? _gender[1] : null)!;
     }
 
     private void btnBack_Click(object sender, EventArgs e)
@@ -110,26 +103,7 @@ public partial class AddUser : Form
         _clients.Birthday = _birthday;
     }
 
-    private void btnSubmit_Click(object sender, EventArgs e)
-    {
-        try
-        {
-            _conn.connInsert(_clients.Nombre, _clients.Apellido, _clients.Genero, _clients.Birthday,
-                _clients.phoneNumber, _clients.emailAddress, _clients.Nationality);
-            MessageBox.Show(
-                @"Your information was stored successfully.
-You will receive a confirmation message on the given address",
-                @"Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show($@"Your request wasn't successfully done.
-Please check your information.",
-                @"Error connecting to the server", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            Console.WriteLine(ex);
-        }
-    }
-
+    //populate the combobox with all the countries
     private void PupulateCountrycmb()
     {
         var countries = new List<string>();
@@ -155,5 +129,21 @@ Please check your information.",
         {
             mtxbPhoneNumber.Select(0, 0);
         });
+    }
+    private void btnSubmit_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            _conn.InsertData(_clients.Name, _clients.LastName, _clients.Gender, _clients.Birthday, _clients.Nationality, _clients.PhoneNumber, _clients.EmailAddress);
+            MessageBox.Show( @"Your information was stored successfully. You will receive a confirmation message on the given address",
+                @"Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($@"Your request wasn't successfully done.
+            Please check your information.",
+                @"Error connecting to the server", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            Console.WriteLine(ex);
+        }
     }
 }

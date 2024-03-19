@@ -66,6 +66,7 @@
             btnSearch.TabIndex = 4;
             btnSearch.Text = "Search User";
             btnSearch.UseVisualStyleBackColor = true;
+            btnSearch.Click += btnSearch_Click;
             // 
             // button3
             // 

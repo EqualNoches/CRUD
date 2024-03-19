@@ -28,44 +28,44 @@
         /// </summary>
         private void InitializeComponent()
         {
-            btnSearch = new Button();
-            rtxbSearchBar = new RichTextBox();
+            components = new System.ComponentModel.Container();
+            dataGridView1 = new DataGridView();
+            bindingSource1 = new BindingSource(components);
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)bindingSource1).BeginInit();
             SuspendLayout();
             // 
-            // btnSearch
+            // dataGridView1
             // 
-            btnSearch.Location = new Point(1662, 96);
-            btnSearch.Name = "btnSearch";
-            btnSearch.Size = new Size(314, 80);
-            btnSearch.TabIndex = 1;
-            btnSearch.Text = "Search";
-            btnSearch.UseVisualStyleBackColor = true;
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Location = new Point(38, 134);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.RowHeadersWidth = 92;
+            dataGridView1.Size = new Size(540, 338);
+            dataGridView1.TabIndex = 0;
             // 
-            // rtxbSearchBar
+            // bindingSource1
             // 
-            rtxbSearchBar.Location = new Point(156, 96);
-            rtxbSearchBar.MaxLength = 20;
-            rtxbSearchBar.Multiline = false;
-            rtxbSearchBar.Name = "rtxbSearchBar";
-            rtxbSearchBar.Size = new Size(1486, 80);
-            rtxbSearchBar.TabIndex = 2;
-            rtxbSearchBar.Text = "";
+            bindingSource1.CurrentChanged += bindingSource1_CurrentChanged;
             // 
             // SearchForm
             // 
             AutoScaleDimensions = new SizeF(15F, 37F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1988, 911);
-            Controls.Add(rtxbSearchBar);
-            Controls.Add(btnSearch);
+            ClientSize = new Size(1455, 977);
+            Controls.Add(dataGridView1);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "SearchForm";
             Text = "SearchForm";
+            Load += SearchForm_Load;
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)bindingSource1).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
 
-        private Button btnSearch;
-        private RichTextBox rtxbSearchBar;
+        private DataGridView dataGridView1;
+        private BindingSource bindingSource1;
     }
 }

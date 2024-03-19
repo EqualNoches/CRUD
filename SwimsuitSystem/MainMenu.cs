@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
-namespace SwimsuitSystem
+﻿namespace SwimsuitSystem
 {
     public partial class MainMenu : Form
     {
@@ -20,13 +10,20 @@ namespace SwimsuitSystem
         private void btnNewUser_Click(object sender, EventArgs e)
         {
             AddUser addUser = new AddUser();
-            this.Close();
+            this.Hide();
             addUser.Show();
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            SearchForm searchForm = new SearchForm();
+            this.Hide();
+            searchForm.Show();
         }
     }
 }
