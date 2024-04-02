@@ -1,4 +1,4 @@
-﻿namespace SwimsuitSystem
+﻿namespace CRUD
 {
     partial class AddUser
     {
@@ -45,6 +45,8 @@
             btnBack = new Button();
             cmbPais = new ComboBox();
             mtxbPhoneNumber = new MaskedTextBox();
+            lblID = new Label();
+            txbID = new TextBox();
             SuspendLayout();
             // 
             // lblName
@@ -217,11 +219,31 @@
             mtxbPhoneNumber.TextChanged += mtxbPhoneNumber_TextChanged;
             mtxbPhoneNumber.Enter += mtxbPhoneNumber_Enter;
             // 
-            // Form1
+            // lblID
+            // 
+            lblID.AutoSize = true;
+            lblID.Location = new Point(678, 41);
+            lblID.Name = "lblID";
+            lblID.Size = new Size(49, 37);
+            lblID.TabIndex = 22;
+            lblID.Text = "ID:";
+            // 
+            // txbID
+            // 
+            txbID.Location = new Point(733, 41);
+            txbID.Name = "txbID";
+            txbID.ReadOnly = true;
+            txbID.Size = new Size(105, 43);
+            txbID.TabIndex = 23;
+            txbID.TextChanged += txbID_TextChanged;
+            // 
+            // AddUser
             // 
             AutoScaleDimensions = new SizeF(15F, 37F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(865, 1111);
+            Controls.Add(txbID);
+            Controls.Add(lblID);
             Controls.Add(mtxbPhoneNumber);
             Controls.Add(cmbPais);
             Controls.Add(btnBack);
@@ -264,5 +286,7 @@
         private Button btnBack;
         private ComboBox cmbPais;
         private MaskedTextBox mtxbPhoneNumber;
+        private Label lblID;
+        private TextBox txbID;
     }
 }

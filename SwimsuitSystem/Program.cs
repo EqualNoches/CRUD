@@ -1,4 +1,4 @@
-namespace SwimsuitSystem
+namespace CRUD
 {
     internal static class Program
     {

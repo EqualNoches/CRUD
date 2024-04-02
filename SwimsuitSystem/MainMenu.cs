@@ -1,4 +1,4 @@
-﻿namespace SwimsuitSystem
+﻿namespace CRUD
 {
     public partial class MainMenu : Form
     {

@@ -1,9 +1,9 @@
-using SwimsuitSystem.Data;
 using System.Globalization;
 using System.Text.RegularExpressions;
+using CRUD.Data;
 using TextBox = System.Windows.Forms.TextBox;
 
-namespace SwimsuitSystem;
+namespace CRUD;
 
 public partial class AddUser : Form
 {
@@ -15,17 +15,22 @@ public partial class AddUser : Form
 
     // objetos para llamar a las clases
     private Connection _conn = new Connection();
-    private readonly Clients _clients = new("", "", "", "", "", "", "");
+    private readonly Clients _clients = new("","", "", "", "", "", "", "");
 
     //patron regex para saber si solo se encuentran letras en una cadena
     private const string RegexPattern = "^(?:[a-zA-Z]+)?$";
+
+
 
     // form 1
     public AddUser()
     {
         InitializeComponent();
         PupulateCountrycmb();
+        txbID.Text = _clients.Id;
     }
+
+
 
     // Esta funcion se encarga de asegurar que solo hayan letras dentro de un textbox
     private bool ValidFormat(string format, TextBox txb)
@@ -62,7 +67,7 @@ public partial class AddUser : Form
         string regexPatternPhoneNumber = "/^\\(?([0-9]{3})\\)?[-.\\s]?([0-9]{3})[-.\\s]?([0-9]{4})$/";
         if (Regex.IsMatch(_phoneNumber, regexPatternPhoneNumber))
         {
-            MessageBox.Show(@"Please enter a valid input", "Incorrect format", MessageBoxButtons.OK,
+            MessageBox.Show(@"Please enter a valid input", @"Incorrect format", MessageBoxButtons.OK,
                 MessageBoxIcon.Error);
             mtxbPhoneNumber.Clear();
             _clients.PhoneNumber = _phoneNumber;
@@ -134,8 +139,8 @@ public partial class AddUser : Form
     {
         try
         {
-            _conn.InsertData(_clients.Name, _clients.LastName, _clients.Gender, _clients.Birthday, _clients.Nationality, _clients.PhoneNumber, _clients.EmailAddress);
-            MessageBox.Show( @"Your information was stored successfully. You will receive a confirmation message on the given address",
+            _conn.InsertData(_clients.Id,_clients.Name, _clients.LastName, _clients.Gender, _clients.Birthday, _clients.Nationality, _clients.PhoneNumber, _clients.EmailAddress);
+            MessageBox.Show(@"Your information was stored successfully. You will receive a confirmation message on the given address",
                 @"Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
         catch (Exception ex)
@@ -145,5 +150,10 @@ public partial class AddUser : Form
                 @"Error connecting to the server", MessageBoxButtons.OK, MessageBoxIcon.Error);
             Console.WriteLine(ex);
         }
+    }
+
+    private void txbID_TextChanged(object sender, EventArgs e)
+    {
+
     }
 }
