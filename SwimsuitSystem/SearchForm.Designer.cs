@@ -28,24 +28,27 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             dataGridView1 = new DataGridView();
+            bindingSource1 = new BindingSource(components);
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)bindingSource1).BeginInit();
             SuspendLayout();
             // 
             // dataGridView1
             // 
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(39, 305);
+            dataGridView1.Location = new Point(24, 171);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersWidth = 92;
-            dataGridView1.Size = new Size(959, 528);
+            dataGridView1.Size = new Size(1923, 565);
             dataGridView1.TabIndex = 0;
             // 
             // SearchForm
             // 
             AutoScaleDimensions = new SizeF(15F, 37F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1045, 859);
+            ClientSize = new Size(1957, 753);
             Controls.Add(dataGridView1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Margin = new Padding(2);
@@ -53,11 +56,13 @@
             Text = "SearchForm";
             Load += SearchForm_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)bindingSource1).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
 
         private DataGridView dataGridView1;
+        private BindingSource bindingSource1;
     }
 }
