@@ -7,17 +7,15 @@ namespace CRUD;
 
 public partial class AddUser : Form
 {
-    // inicializacion de variables generales
-    private readonly string[] _gender = { "Hombre", "Mujer" };
+    // Initialize general variables
+    private readonly string[] _gender = ["Man", "Woman"];
     private string _name, _lastName, _email, _phoneNumber, _birthday, _country;
 
-    // Codigo que se encarga de obtener todos los nombres de los paises para ser introducidos en un combobox
-
-    // objetos para llamar a las clases
+    // Object to call the class
     private Connection _conn = new Connection();
-    private readonly Clients _clients = new("","", "", "", "", "", "", "");
+    private readonly Clients _clients = new("", "", "", "", "", "", "", "");
 
-    //patron regex para saber si solo se encuentran letras en una cadena
+    // patron regex para saber si solo se encuentran letras en una cadena
     private const string RegexPattern = "^(?:[a-zA-Z]+)?$";
 
 
@@ -32,8 +30,8 @@ public partial class AddUser : Form
 
 
 
-    // Esta funcion se encarga de asegurar que solo hayan letras dentro de un textbox
-    private bool ValidFormat(string format, TextBox txb)
+    // This function is in charge to check if the selected text is only an alphabetic character.
+    private static bool ValidFormat(string format, TextBox txb)
     {
         var matches = Regex.IsMatch(format, RegexPattern);
         if (!matches)
@@ -49,7 +47,7 @@ public partial class AddUser : Form
     private void txbFirstName_TextChanged(object sender, EventArgs e)
     {
         _name = txbFirstName.Text;
-        if (ValidFormat(_name, txbFirstName)) _clients.Name = _name;
+        if (ValidFormat(_name, txbFirstName) || _name != null) _clients.Name = _name;
     }
 
     private void txbLastName_TextChanged(object sender, EventArgs e)
@@ -77,14 +75,14 @@ public partial class AddUser : Form
             _clients.PhoneNumber = _phoneNumber;
         }
     }
-
+    // take the data of the email textbox
     private void txbEmail_TextChanged(object sender, EventArgs e)
     {
         _email = txbEmail.Text;
         _clients.EmailAddress = _email;
     }
 
-
+    // sex radios
     private void rdbMale_CheckedChanged(object sender, EventArgs e)
     {
         _clients.Gender = (rdbMale.Checked ? _gender[0] : null)!;
@@ -95,11 +93,11 @@ public partial class AddUser : Form
         _clients.Gender = (rdbFemale.Checked ? _gender[1] : null)!;
     }
 
+    // back button
     private void btnBack_Click(object sender, EventArgs e)
     {
         MainMenu mainMenu = new MainMenu();
         this.Close();
-        mainMenu.Show();
     }
 
     private void dtpBirthday_ValueChanged(object sender, EventArgs e)
@@ -135,11 +133,14 @@ public partial class AddUser : Form
             mtxbPhoneNumber.Select(0, 0);
         });
     }
+
+    // this button is used to move the data from the program to the database
+    // TODO: Check if the value of textboxes is empty and can be passed to the DataBase
     private void btnSubmit_Click(object sender, EventArgs e)
     {
         try
         {
-            _conn.InsertData(_clients.Id,_clients.Name, _clients.LastName, _clients.Gender, _clients.Birthday, _clients.Nationality, _clients.PhoneNumber, _clients.EmailAddress);
+            _conn.InsertData(_clients.Id, _clients.Name, _clients.LastName, _clients.Gender, _clients.Birthday, _clients.Nationality, _clients.PhoneNumber, _clients.EmailAddress);
             MessageBox.Show(@"Your information was stored successfully. You will receive a confirmation message on the given address",
                 @"Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
@@ -153,6 +154,11 @@ public partial class AddUser : Form
     }
 
     private void txbID_TextChanged(object sender, EventArgs e)
+    {
+
+    }
+
+    private void AddUser_Load(object sender, EventArgs e)
     {
 
     }

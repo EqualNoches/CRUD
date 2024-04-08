@@ -10,7 +10,6 @@
         private void btnNewUser_Click(object sender, EventArgs e)
         {
             AddUser addUser = new AddUser();
-            this.Hide();
             addUser.Show();
         }
 
@@ -22,8 +21,12 @@
         private void btnSearch_Click(object sender, EventArgs e)
         {
             SearchForm searchForm = new SearchForm();
-            this.Hide();
             searchForm.Show();
+        }
+
+        private void MainMenu_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

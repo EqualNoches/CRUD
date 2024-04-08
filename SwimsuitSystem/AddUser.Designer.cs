@@ -263,6 +263,7 @@
             Controls.Add(lblName);
             Name = "AddUser";
             Text = "Swim Suit";
+            Load += AddUser_Load;
             ResumeLayout(false);
             PerformLayout();
         }

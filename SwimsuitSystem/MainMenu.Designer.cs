@@ -31,7 +31,6 @@
             btnNewUser = new Button();
             label1 = new Label();
             btnSearch = new Button();
-            button3 = new Button();
             button4 = new Button();
             SuspendLayout();
             // 
@@ -68,19 +67,9 @@
             btnSearch.UseVisualStyleBackColor = true;
             btnSearch.Click += btnSearch_Click;
             // 
-            // button3
-            // 
-            button3.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button3.Location = new Point(159, 484);
-            button3.Name = "button3";
-            button3.Size = new Size(791, 91);
-            button3.TabIndex = 5;
-            button3.Text = "button3";
-            button3.UseVisualStyleBackColor = true;
-            // 
             // button4
             // 
-            button4.Location = new Point(25, 643);
+            button4.Location = new Point(12, 464);
             button4.Name = "button4";
             button4.Size = new Size(209, 58);
             button4.TabIndex = 6;
@@ -93,15 +82,15 @@
             AutoScaleDimensions = new SizeF(15F, 37F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveCaption;
-            ClientSize = new Size(1086, 713);
+            ClientSize = new Size(1106, 531);
             Controls.Add(button4);
-            Controls.Add(button3);
             Controls.Add(btnSearch);
             Controls.Add(label1);
             Controls.Add(btnNewUser);
             ForeColor = SystemColors.ControlText;
             Name = "MainMenu";
             Text = "MainMenu";
+            Load += MainMenu_Load;
             ResumeLayout(false);
             PerformLayout();
         }
@@ -111,7 +100,6 @@
         private Button btnNewUser;
         private Label label1;
         private Button btnSearch;
-        private Button button3;
         private Button button4;
     }
 }
