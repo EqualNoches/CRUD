@@ -33,15 +33,13 @@ public partial class AddUser : Form
     // This function is in charge to check if the selected text is only an alphabetic character.
     private static bool ValidFormat(string format, TextBox txb)
     {
-        var matches = Regex.IsMatch(format, RegexPattern);
-        if (!matches)
-        {
-            MessageBox.Show(@"Please enter a valid input", @"Incorrect format", MessageBoxButtons.OK,
-                MessageBoxIcon.Error);
-            txb.Clear();
-        }
-
-        return true;
+        bool matches = Regex.IsMatch(format, RegexPattern);
+        if (matches) return true;
+        MessageBox.Show(@"Please enter a valid input", @"Incorrect format", MessageBoxButtons.OK,
+            MessageBoxIcon.Error);
+        txb.Clear();
+        
+        return false;
     }
 
     private void txbFirstName_TextChanged(object sender, EventArgs e)

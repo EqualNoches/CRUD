@@ -29,8 +29,7 @@ namespace CRUD.Data
             _connection.Close();
         }
 
-        public DataTable SelectData(string id, string name, string lastname, string gender, string birthday, string country,
-            string phoneNumber, string emailAddress)
+        public DataTable SelectData()
         {
             DataTable dt = new DataTable();                                                                                                                                                                                                           
             _connection.Open();
@@ -42,6 +41,20 @@ namespace CRUD.Data
             _connection.Close();
             return dt;
         }
+        public DataTable SelectFilteredData(string id)
+        {
+            DataTable dt = new DataTable();                                                                                                                                                                                                           
+            _connection.Open();
+            _command = new SqlCommand("readUserFiltered", _connection);
+            _command.Parameters.AddWithValue("@client_id", id);
+            _command.CommandType = System.Data.CommandType.StoredProcedure;
+            SqlDataAdapter da = new SqlDataAdapter(_command);
+            da.Fill(dt);
+            _command.ExecuteNonQuery();
+            _connection.Close();
+            return dt;
+        }
+
         public void UpdateData(string id, string name, string lastname, string gender, string birthday, string country, string phoneNumber, string emailAddress)
         {
             _connection.Open();

@@ -20,7 +20,7 @@
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            SearchForm searchForm = new SearchForm();
+            var searchForm = new SearchForm();
             searchForm.Show();
         }
 

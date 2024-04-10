@@ -94,9 +94,9 @@
             lblNationality.AutoSize = true;
             lblNationality.Location = new Point(34, 552);
             lblNationality.Name = "lblNationality";
-            lblNationality.Size = new Size(258, 37);
+            lblNationality.Size = new Size(244, 37);
             lblNationality.TabIndex = 5;
-            lblNationality.Text = "Pais de Naciemiento";
+            lblNationality.Text = "Pais de Nacimiento";
             lblNationality.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // lblPhoneNumber
@@ -148,6 +148,7 @@
             // rdbMale
             // 
             rdbMale.AutoSize = true;
+            rdbMale.Checked = true;
             rdbMale.Location = new Point(297, 287);
             rdbMale.Name = "rdbMale";
             rdbMale.Size = new Size(107, 41);
@@ -164,7 +165,6 @@
             rdbFemale.Name = "rdbFemale";
             rdbFemale.Size = new Size(133, 41);
             rdbFemale.TabIndex = 13;
-            rdbFemale.TabStop = true;
             rdbFemale.Text = "Female";
             rdbFemale.UseVisualStyleBackColor = true;
             rdbFemale.CheckedChanged += rdbFemale_CheckedChanged;

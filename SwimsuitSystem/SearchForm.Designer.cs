@@ -33,6 +33,10 @@
             bindingSource1 = new BindingSource(components);
             lblUpdate = new Button();
             btnDelete = new Button();
+            txbFilteredSearch = new TextBox();
+            btnFilteredSearch = new Button();
+            lblId = new Label();
+            btnRefresh = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)bindingSource1).BeginInit();
             SuspendLayout();
@@ -41,16 +45,17 @@
             // 
             dataGridView1.AllowUserToAddRows = false;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(31, 42);
+            dataGridView1.Location = new Point(31, 143);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersWidth = 92;
-            dataGridView1.Size = new Size(2086, 793);
+            dataGridView1.Size = new Size(2374, 793);
             dataGridView1.TabIndex = 0;
             dataGridView1.CellClick += dataGridView1_CellClick;
+            dataGridView1.CellContentClick += dataGridView1_CellContentClick;
             // 
             // lblUpdate
             // 
-            lblUpdate.Location = new Point(31, 869);
+            lblUpdate.Location = new Point(31, 952);
             lblUpdate.Name = "lblUpdate";
             lblUpdate.Size = new Size(313, 90);
             lblUpdate.TabIndex = 1;
@@ -60,7 +65,7 @@
             // 
             // btnDelete
             // 
-            btnDelete.Location = new Point(1804, 884);
+            btnDelete.Location = new Point(2092, 952);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(313, 90);
             btnDelete.TabIndex = 2;
@@ -68,11 +73,52 @@
             btnDelete.UseVisualStyleBackColor = true;
             btnDelete.Click += btnDelete_Click;
             // 
+            // txbFilteredSearch
+            // 
+            txbFilteredSearch.Location = new Point(1990, 52);
+            txbFilteredSearch.Name = "txbFilteredSearch";
+            txbFilteredSearch.Size = new Size(192, 43);
+            txbFilteredSearch.TabIndex = 3;
+            txbFilteredSearch.TextChanged += txbFilteredSearch_TextChanged;
+            // 
+            // btnFilteredSearch
+            // 
+            btnFilteredSearch.Location = new Point(2205, 31);
+            btnFilteredSearch.Name = "btnFilteredSearch";
+            btnFilteredSearch.Size = new Size(200, 84);
+            btnFilteredSearch.TabIndex = 4;
+            btnFilteredSearch.Text = "Search";
+            btnFilteredSearch.UseVisualStyleBackColor = true;
+            btnFilteredSearch.Click += btnFilteredSearch_Click;
+            // 
+            // lblId
+            // 
+            lblId.AutoSize = true;
+            lblId.Location = new Point(1908, 58);
+            lblId.Name = "lblId";
+            lblId.Size = new Size(49, 37);
+            lblId.TabIndex = 5;
+            lblId.Text = "ID:";
+            // 
+            // btnRefresh
+            // 
+            btnRefresh.Location = new Point(31, 31);
+            btnRefresh.Name = "btnRefresh";
+            btnRefresh.Size = new Size(449, 84);
+            btnRefresh.TabIndex = 6;
+            btnRefresh.Text = "Refresh";
+            btnRefresh.UseVisualStyleBackColor = true;
+            btnRefresh.Click += btnRefresh_Click;
+            // 
             // SearchForm
             // 
             AutoScaleDimensions = new SizeF(15F, 37F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(2137, 986);
+            ClientSize = new Size(2449, 1063);
+            Controls.Add(btnRefresh);
+            Controls.Add(lblId);
+            Controls.Add(btnFilteredSearch);
+            Controls.Add(txbFilteredSearch);
             Controls.Add(btnDelete);
             Controls.Add(lblUpdate);
             Controls.Add(dataGridView1);
@@ -84,6 +130,7 @@
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ((System.ComponentModel.ISupportInitialize)bindingSource1).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -92,5 +139,9 @@
         private BindingSource bindingSource1;
         private Button lblUpdate;
         private Button btnDelete;
+        private TextBox txbFilteredSearch;
+        private Button btnFilteredSearch;
+        private Label lblId;
+        private Button btnRefresh;
     }
 }
