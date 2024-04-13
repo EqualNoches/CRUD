@@ -260,6 +260,7 @@
             Controls.Add(lblGender);
             Controls.Add(lblLastName);
             Controls.Add(lblName);
+            MaximizeBox = false;
             Name = "AddUser";
             Text = "Swim Suit";
             ResumeLayout(false);

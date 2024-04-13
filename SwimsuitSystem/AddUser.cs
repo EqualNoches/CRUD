@@ -15,7 +15,6 @@ public partial class AddUser : Form
     private readonly string[] _gender = ["Man", "Woman"];
     private string _id, _name, _lastName, _email, _phoneNumber, _birthday, _country;
     
-
     // patron regex para saber si solo se encuentran letras en una cadena
     private const string RegexPattern = "^(?:[a-zA-Z]+)?$";
 
@@ -23,7 +22,7 @@ public partial class AddUser : Form
     public AddUser()
     {
         InitializeComponent();
-        PupulateCountrycmb();
+        PopulateCountrycmb();
         _id = _clients.Id;
         txbID.Text = _id;
     }
@@ -58,6 +57,7 @@ public partial class AddUser : Form
         _phoneNumber = mtxbPhoneNumber.Text;
         _clients.PhoneNumber = _phoneNumber;
     }
+
     // take the data of the email textbox
     private void txbEmail_TextChanged(object sender, EventArgs e)
     {
@@ -90,7 +90,7 @@ public partial class AddUser : Form
     }
 
     //populate the combobox with all the countries
-    private void PupulateCountrycmb()
+    private void PopulateCountrycmb()
     {
         var countries = new List<string>();
         var cultures = CultureInfo.GetCultures(CultureTypes.SpecificCultures);

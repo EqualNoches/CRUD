@@ -59,5 +59,29 @@ namespace CRUD.Data
             MessageBox.Show(@"Se ha enviado un correo de confirmación a su correo electronico especificado.",
                 @"Confirmacion de correo electronico.", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+        public async void SendUpdatedEmail(string recieverName,string recieverMail)
+        {
+            var email = new MimeMessage();
+            email.From.Add(new MailboxAddress("CRUD Application", "edwarddiaz@kcs.edu.do"));
+            email.To.Add(new MailboxAddress(recieverName, recieverMail));
+
+            email.Subject = "MAMI SOY PROGRAMADOR";
+            email.Body = new TextPart(MimeKit.Text.TextFormat.Html)
+            {
+                Text = "<b>Su correo electronico ha sido modificado en la aplicación crud </b>" +
+                       "<h1> Es Edward </h1>"
+            };
+            using var smtp = new SmtpClient();
+            await smtp.ConnectAsync("smtp.gmail.com", 465, true);
+
+            // Note: only needed if the SMTP server requires authentication
+            await smtp.AuthenticateAsync("edwarddiaz@kcs.edu.do", "ujdfqekpigceszkj");
+
+            await smtp.SendAsync(email);
+            await smtp.DisconnectAsync(true);
+
+            MessageBox.Show(@"Se ha enviado un correo de confirmación a su correo electronico especificado.",
+                @"Confirmacion de correo electronico.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
     }
 }

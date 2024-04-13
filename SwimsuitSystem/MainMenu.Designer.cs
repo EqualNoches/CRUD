@@ -88,6 +88,7 @@
             Controls.Add(label1);
             Controls.Add(btnNewUser);
             ForeColor = SystemColors.ControlText;
+            MaximizeBox = false;
             Name = "MainMenu";
             Text = "MainMenu";
             Load += MainMenu_Load;
