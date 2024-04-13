@@ -235,7 +235,6 @@
             txbID.ReadOnly = true;
             txbID.Size = new Size(105, 43);
             txbID.TabIndex = 23;
-            txbID.TextChanged += txbID_TextChanged;
             // 
             // AddUser
             // 
@@ -263,7 +262,6 @@
             Controls.Add(lblName);
             Name = "AddUser";
             Text = "Swim Suit";
-            Load += AddUser_Load;
             ResumeLayout(false);
             PerformLayout();
         }

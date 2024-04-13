@@ -8,7 +8,7 @@ namespace CRUD
 {
     public partial class SearchForm : Form
     {
-        Connection _connection = new Connection();
+        readonly Connection _connection = new Connection();
         private int _index;
         private string _filteredSearch;
 
@@ -20,16 +20,16 @@ namespace CRUD
         private void SearchForm_Load(object sender, EventArgs e)
         {
 
-            showData();
+            ShowData();
 
         }
 
-        private static bool checkRegex(string idSearch, TextBox txb)
+        private static bool CheckRegex(string idSearch, TextBox txb)
         {
-            const string RegexPatternId = @"^\d{0,4}$";
+            const string regexPatternId = @"^\d{0,4}$";
 
-            bool _matches = Regex.IsMatch(idSearch, RegexPatternId);
-            if (_matches) return true;
+            var matches = Regex.IsMatch(idSearch, regexPatternId);
+            if (matches) return true;
             MessageBox.Show(@"Please enter a valid input", @"Incorrect format", MessageBoxButtons.OK,
                 MessageBoxIcon.Error);
             txb.Clear();
@@ -39,23 +39,15 @@ namespace CRUD
 
         private void lblUpdate_Click(object sender, EventArgs e)
         {
-            string id,
-                name,
-                lastname,
-                gender,
-                birthday,
-                country,
-                phoneNumber,
-                emailAddress;
             _index = dataGridView1.CurrentCell.RowIndex;
-            id = dataGridView1.Rows[_index].Cells[0].Value.ToString();
-            name = dataGridView1.Rows[_index].Cells[1].Value.ToString();
-            lastname = dataGridView1.Rows[_index].Cells[2].Value.ToString();
-            gender = dataGridView1.Rows[_index].Cells[3].Value.ToString();
-            birthday = dataGridView1.Rows[_index].Cells[4].Value.ToString();
-            country = dataGridView1.Rows[_index].Cells[5].Value.ToString();
-            phoneNumber = dataGridView1.Rows[_index].Cells[6].Value.ToString();
-            emailAddress = dataGridView1.Rows[_index].Cells[7].Value.ToString();
+            var id = dataGridView1.Rows[_index].Cells[0].Value.ToString();
+            var name = dataGridView1.Rows[_index].Cells[1].Value.ToString();
+            var lastname = dataGridView1.Rows[_index].Cells[2].Value.ToString();
+            var gender = dataGridView1.Rows[_index].Cells[3].Value.ToString();
+            var birthday = dataGridView1.Rows[_index].Cells[4].Value.ToString();
+            var country = dataGridView1.Rows[_index].Cells[5].Value.ToString();
+            var phoneNumber = dataGridView1.Rows[_index].Cells[6].Value.ToString();
+            var emailAddress = dataGridView1.Rows[_index].Cells[7].Value.ToString();
 
 
             try
@@ -67,7 +59,7 @@ namespace CRUD
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
-                throw;
+                throw;  
             }
         }
 
@@ -90,9 +82,10 @@ namespace CRUD
 
 
         }
+
         private void btnRefresh_Click(object sender, EventArgs e)
         {
-            showData();
+            ShowData();
         }
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -112,9 +105,7 @@ namespace CRUD
             dataGridView1.DataSource = bindingSource1;
         }
 
-
-
-        private void showData()
+        private void ShowData()
         {
             DataTable dt = _connection.SelectData();
             bindingSource1.DataSource = dt;
@@ -124,7 +115,7 @@ namespace CRUD
         private void txbFilteredSearch_TextChanged(object sender, EventArgs e)
         {
             _filteredSearch = txbFilteredSearch.Text;
-            if (checkRegex(_filteredSearch, txbFilteredSearch) || _filteredSearch != null) ;
+            if (CheckRegex(_filteredSearch, txbFilteredSearch) || !(_filteredSearch != null)) ;
         }
     }
 }

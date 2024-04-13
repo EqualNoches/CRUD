@@ -7,28 +7,26 @@ namespace CRUD;
 
 public partial class AddUser : Form
 {
-    // Initialize general variables
-    private readonly string[] _gender = ["Man", "Woman"];
-    private string _name, _lastName, _email, _phoneNumber, _birthday, _country;
-
     // Object to call the class
     private Connection _conn = new Connection();
-    private readonly Clients _clients = new("", "", "", "", "", "", "", "");
+    private readonly Clients _clients = new( "", "", "", "", "", "", "");
+    
+    // Initialize general variables
+    private readonly string[] _gender = ["Man", "Woman"];
+    private string _id, _name, _lastName, _email, _phoneNumber, _birthday, _country;
+    
 
     // patron regex para saber si solo se encuentran letras en una cadena
     private const string RegexPattern = "^(?:[a-zA-Z]+)?$";
-
-
 
     // form 1
     public AddUser()
     {
         InitializeComponent();
         PupulateCountrycmb();
-        txbID.Text = _clients.Id;
+        _id = _clients.Id;
+        txbID.Text = _id;
     }
-
-
 
     // This function is in charge to check if the selected text is only an alphabetic character.
     private static bool ValidFormat(string format, TextBox txb)
@@ -58,20 +56,7 @@ public partial class AddUser : Form
     private void mtxbPhoneNumber_TextChanged(object sender, EventArgs e)
     {
         _phoneNumber = mtxbPhoneNumber.Text;
-
-        //validar si es esta escribiendo un numero de telefono
-        string regexPatternPhoneNumber = "/^\\(?([0-9]{3})\\)?[-.\\s]?([0-9]{3})[-.\\s]?([0-9]{4})$/";
-        if (Regex.IsMatch(_phoneNumber, regexPatternPhoneNumber))
-        {
-            MessageBox.Show(@"Please enter a valid input", @"Incorrect format", MessageBoxButtons.OK,
-                MessageBoxIcon.Error);
-            mtxbPhoneNumber.Clear();
-            _clients.PhoneNumber = _phoneNumber;
-        }
-        else
-        {
-            _clients.PhoneNumber = _phoneNumber;
-        }
+        _clients.PhoneNumber = _phoneNumber;
     }
     // take the data of the email textbox
     private void txbEmail_TextChanged(object sender, EventArgs e)
@@ -138,9 +123,11 @@ public partial class AddUser : Form
     {
         try
         {
-            _conn.InsertData(_clients.Id, _clients.Name, _clients.LastName, _clients.Gender, _clients.Birthday, _clients.Nationality, _clients.PhoneNumber, _clients.EmailAddress);
-            MessageBox.Show(@"Your information was stored successfully. You will receive a confirmation message on the given address",
+            _conn.InsertData(_id, _clients.Name, _clients.LastName, _clients.Gender, _clients.Birthday, _clients.Nationality, _clients.PhoneNumber, _clients.EmailAddress);
+            _clients.SendEmail(_name,_email);
+            MessageBox.Show(@"Your information was stored successfully.",
                 @"Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            this.Close();
         }
         catch (Exception ex)
         {
@@ -149,15 +136,5 @@ public partial class AddUser : Form
                 @"Error connecting to the server", MessageBoxButtons.OK, MessageBoxIcon.Error);
             Console.WriteLine(ex);
         }
-    }
-
-    private void txbID_TextChanged(object sender, EventArgs e)
-    {
-
-    }
-
-    private void AddUser_Load(object sender, EventArgs e)
-    {
-
     }
 }
